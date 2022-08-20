@@ -1,4 +1,5 @@
-﻿using Eng.UserManager.Business.Interfaces;
+﻿using Eng.UserManager.Business.Exceptions;
+using Eng.UserManager.Business.Interfaces;
 using Eng.UserManager.DataAccess;
 using Eng.UserManager.Domain.Entities;
 
@@ -22,6 +23,8 @@ namespace Eng.UserManager.Business.Services
                 BirthDate = birthDate,
                 Name = userName
             };
+            ValidateMandatoryFields(user);
+
             await _repository.Add(user);
             _context.SaveChanges();
 
@@ -50,6 +53,13 @@ namespace Eng.UserManager.Business.Services
             _context.SaveChanges();
 
             return user;
+        }
+
+        public void ValidateMandatoryFields(User user) {
+            if (string.IsNullOrEmpty(user.Name))
+                throw new MandatoryFieldException(nameof(user.Name));
+            if (user.BirthDate == new DateTime())
+                throw new MandatoryFieldException(nameof(user.BirthDate));
         }
     }
 }

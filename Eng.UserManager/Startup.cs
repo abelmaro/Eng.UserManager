@@ -3,7 +3,7 @@ using Eng.UserManager.Business.Services;
 using Eng.UserManager.DataAccess;
 using Eng.UserManager.DataAccess.Interfaces;
 using Eng.UserManager.DataAccess.Repositories;
-using Megatlon.WebApi.Middlewares;
+using Eng.UserManager.WebApi.Middlewares;
 using Microsoft.EntityFrameworkCore;
 
 namespace Eng.UserManager.WebApi
@@ -30,9 +30,9 @@ namespace Eng.UserManager.WebApi
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(IRepositoryService<>), typeof(RepositoryService<>));
 
-
+            var connString = Configuration.GetConnectionString("DataContext");
             services.AddEntityFrameworkSqlServer()
-                            .AddDbContext<UserManagerDataContext>(options => options.UseSqlServer("Server=.;Database=Eng.UserManager;Trusted_Connection=True;"))
+                            .AddDbContext<UserManagerDataContext>(options => options.UseSqlServer(connString))
                             .AddOptions();
         }
 
@@ -47,10 +47,10 @@ namespace Eng.UserManager.WebApi
 
             app.UseHttpsRedirection();
 
-            //if (!dataContext.Database.EnsureCreated())
-            //{
-            //    dataContext.Database.Migrate();
-            //}
+            if (dataContext.Database.GetPendingMigrations().Count() > 0){
+                dataContext.Database.Migrate();
+            }
+
             app.UseRouting();
 
             app.UseMiddleware<ExceptionHandlingMiddleware>();

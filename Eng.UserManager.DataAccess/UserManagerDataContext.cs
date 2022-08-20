@@ -9,6 +9,8 @@ namespace Eng.UserManager.DataAccess
         : base(options)
         {
         }
+        public UserManagerDataContext() { }
+
         public virtual DbSet<User> Users { get; set; } = null!;
     }
 }
