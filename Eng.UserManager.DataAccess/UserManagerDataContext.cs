@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Eng.UserManager.DataAccess
 {
-    public  class UserManagerDataContext : DbContext
+    public class UserManagerDataContext : DbContext
     {
         public UserManagerDataContext(DbContextOptions options)
         : base(options)
@@ -12,5 +12,10 @@ namespace Eng.UserManager.DataAccess
         public UserManagerDataContext() { }
 
         public virtual DbSet<User> Users { get; set; } = null!;
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+        }
     }
 }

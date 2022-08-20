@@ -4,6 +4,7 @@ using Eng.UserManager.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Eng.UserManager.DataAccess.Migrations
 {
     [DbContext(typeof(UserManagerDataContext))]
-    partial class UserManagerDataContextModelSnapshot : ModelSnapshot
+    [Migration("20220820135258_alter-column-active-type-bool")]
+    partial class altercolumnactivetypebool
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

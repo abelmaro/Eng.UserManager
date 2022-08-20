@@ -31,8 +31,7 @@ namespace Eng.UserManager.WebApi
             services.AddScoped(typeof(IRepositoryService<>), typeof(RepositoryService<>));
 
             var connString = Configuration.GetConnectionString("DataContext");
-            services.AddEntityFrameworkSqlServer()
-                            .AddDbContext<UserManagerDataContext>(options => options.UseSqlServer(connString))
+            services.AddDbContext<UserManagerDataContext>(options => options.UseSqlServer(connString))
                             .AddOptions();
         }
 
