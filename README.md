@@ -1,6 +1,4 @@
 # Eng User Manager
-## _The Last Markdown Editor, Ever_
-
 
 Microservice for managing users, it has layered programming to separate responsibilities using SQLServer as a database.
 ## Features
