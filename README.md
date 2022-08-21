@@ -1,7 +1,29 @@
-# Eng.UserManager
+# Eng User Manager
+## _The Last Markdown Editor, Ever_
+
 
 Microservice for managing users, it has layered programming to separate responsibilities using SQLServer as a database.
+## Features
+Allows you to:
+ - Add new a user,
+ - Change their status (active, inactive), 
+ - Delete
+ - Get all active users
 
-Allows you to register a user, change their status (active, inactive), delete and get all active users
+## Tech
 
-Microservice with .NET CORE 6 and EntityFramework (code-first)
+Used technology:
+- Entity Framwork Core (code-first)
+- .Net Core 6
+- SQL SERVER 2019
+- XUnit
+- Swashbuckle (Swagger)
+
+## Docker
+
+
+```sh
+docker-compose up
+```
+
+And go to www.localhost:5000/swagger/index.html
