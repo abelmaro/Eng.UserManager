@@ -46,9 +46,9 @@ namespace Eng.UserManager.WebApi
 
             app.UseHttpsRedirection();
 
-            if (dataContext.Database.GetPendingMigrations().Count() > 0){
-                dataContext.Database.Migrate();
-            }
+            //if (dataContext.Database.GetPendingMigrations().Count() > 0){
+            //    dataContext.Database.Migrate();
+            //}
 
             app.UseRouting();
 

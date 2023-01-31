@@ -38,15 +38,15 @@ namespace Eng.UserManager.Tests.Business
         public async void AddTest_Successful()
         {
             //Arrage
-            _userRepositoryMock.Setup(x => x.Add(GetUser()));
+            _userRepositoryMock.Setup(x => x.AddAsync(GetUser()));
 
             //Act
             _service = GetService();
-            var entity = await _service.AddNewUser(NAME, BIRTH_DATE);
+            var entity = await _service.AddNewUserAsync(NAME, BIRTH_DATE);
 
             //Assert
             Assert.True(entity.Active.Equals(true));
-            _repositoryServiceMock.Verify(x => x.Add(It.IsAny<User>()), Times.Once);
+            _repositoryServiceMock.Verify(x => x.AddAsync(It.IsAny<User>()), Times.Once);
             _contextMock.Verify(x => x.SaveChanges(), Times.Once);
         }
 
@@ -57,12 +57,12 @@ namespace Eng.UserManager.Tests.Business
             var entity = GetUser();
             entity.Active = false;
 
-            _repositoryServiceMock.Setup(x => x.GetById(It.Is<int>(x => x == ID))).Returns(Task.FromResult(entity));
+            _repositoryServiceMock.Setup(x => x.GetByIdAsync(It.Is<int>(x => x == ID))).Returns(Task.FromResult(entity));
             _userRepositoryMock.Setup(x => x.Update(entity));
 
             //Act
             _service = GetService();
-            entity = await _service.UpdateUser(ID, ACTIVE);
+            entity = await _service.UpdateUserAsync(ID, ACTIVE);
 
             //Assert
             Assert.True(entity.Active.Equals(ACTIVE));
@@ -75,19 +75,19 @@ namespace Eng.UserManager.Tests.Business
         {
             //Arrage
             var exception = new EntityNotFoundException(NON_EXISTENT_ID);
-            _repositoryServiceMock.Setup(x => x.DeleteById(It.Is<int>(i => i == NON_EXISTENT_ID))).Throws(exception);
+            _repositoryServiceMock.Setup(x => x.DeleteByIdAsync(It.Is<int>(i => i == NON_EXISTENT_ID))).Throws(exception);
 
             //Act
             try
             {
                 _service = GetService();
-                await _service.RemoveUser(NON_EXISTENT_ID);
+                await _service.RemoveUserAsync(NON_EXISTENT_ID);
             }
             catch (Exception ex)
             {
                 //Assert
                 Assert.Equal(ex.Message, exception.Message);
-                _repositoryServiceMock.Verify(x => x.GetById(It.IsAny<int>()), Times.Never);
+                _repositoryServiceMock.Verify(x => x.GetByIdAsync(It.IsAny<int>()), Times.Never);
                 _contextMock.Verify(x => x.FindAsync<User>(It.IsAny<int>()), Times.Never);
                 _contextMock.Verify(x => x.SaveChanges(), Times.Never);
             }
@@ -102,13 +102,13 @@ namespace Eng.UserManager.Tests.Business
             {
                 //Act
                 _service = GetService();
-                await _service.AddNewUser(String.Empty, BIRTH_DATE);
+                await _service.AddNewUserAsync(String.Empty, BIRTH_DATE);
             }
             catch (Exception ex)
             {
                 //Assert
                 Assert.Equal(ex.Message, new MandatoryFieldException(nameof(entity.Name)).Message);
-                _repositoryServiceMock.Verify(x => x.Add(It.IsAny<User>()), Times.Never);
+                _repositoryServiceMock.Verify(x => x.AddAsync(It.IsAny<User>()), Times.Never);
                 _contextMock.Verify(x => x.SaveChanges(), Times.Never);
             }
         }

@@ -16,21 +16,21 @@ namespace Eng.UserManager.WebApi.Controllers
         }
 
         [HttpPost]
-        public Task<User> AddUser(string userName, DateTime birthDate)
+        public async Task<User> AddUser(string userName, DateTime birthDate)
         {
-            return _userService.AddNewUser(userName, birthDate);
+            return await _userService.AddNewUserAsync(userName, birthDate);
         }
 
         [HttpPost]
-        public Task<User> UpdateUserStatus(int id, bool status)
+        public async Task<User> UpdateUserStatus(int id, bool status)
         {
-            return _userService.UpdateUser(id, status);
+            return await _userService.UpdateUserAsync(id, status);
         }
 
         [HttpPost]
-        public Task<User> RemoveUser(int id)
+        public async Task<User> RemoveUser(int id)
         {
-            return _userService.RemoveUser(id);
+            return await _userService.RemoveUserAsync(id);
         }
 
         [HttpGet]

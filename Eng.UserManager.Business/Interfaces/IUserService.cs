@@ -5,9 +5,9 @@ namespace Eng.UserManager.Business.Interfaces
 {
     public interface IUserService
     {
-        Task<User> AddNewUser(string userName, DateTime birthDate);
-        Task<User> UpdateUser(int id, bool status);
-        Task<User> RemoveUser(int id);
+        Task<User> AddNewUserAsync(string userName, DateTime birthDate);
+        Task<User> UpdateUserAsync(int id, bool status);
+        Task<User> RemoveUserAsync(int id);
         List<User> GetActiveUsers();
     }
 }

@@ -10,22 +10,22 @@ namespace Eng.UserManager.DataAccess.Repositories
         public Repository(UserManagerDataContext context) {
             _context = context;
         }
-        public async Task<TEntity> Add(TEntity entity)
+        public async Task<TEntity> AddAsync(TEntity entity)
         {
             await _context.Set<TEntity>().AddAsync(entity);
 
             return entity;
         }
 
-        public async Task<TEntity> DeleteById(int id)
+        public async Task<TEntity> DeleteByIdAsync(int id)
         {
-            var entity = await GetById(id);
+            var entity = await GetByIdAsync(id);
             _context.Set<TEntity>().Remove(entity);
 
             return entity;
         }
 
-        public async Task<List<TEntity>> GetAll()
+        public async Task<List<TEntity>> GetAllAsync()
         {
             return await _context.Set<TEntity>().ToListAsync();
         }
@@ -38,7 +38,7 @@ namespace Eng.UserManager.DataAccess.Repositories
             return entity;
         }
 
-        public async Task<TEntity> GetById(int id)
+        public async Task<TEntity> GetByIdAsync(int id)
         {
             var entity = await _context.Set<TEntity>().FindAsync(id);
 

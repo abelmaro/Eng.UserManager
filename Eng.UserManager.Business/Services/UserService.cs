@@ -15,7 +15,7 @@ namespace Eng.UserManager.Business.Services
             _repository = repository;
         }
 
-        public async Task<User> AddNewUser(string userName, DateTime birthDate)
+        public async Task<User> AddNewUserAsync(string userName, DateTime birthDate)
         {
             var user = new User
             {
@@ -25,8 +25,8 @@ namespace Eng.UserManager.Business.Services
             };
             ValidateMandatoryFields(user);
 
-            await _repository.Add(user);
-            _context.SaveChanges();
+            await _repository.AddAsync(user);
+            await _context.SaveChangesAsync();
 
             return user;
         }
@@ -36,21 +36,21 @@ namespace Eng.UserManager.Business.Services
             return _repository.GetBaseQuery().Where(x => x.Active).ToList();
         }
 
-        public async Task<User> RemoveUser(int id)
+        public async Task<User> RemoveUserAsync(int id)
         {
-            var user = await _repository.DeleteById(id);
-            _context.SaveChanges();
+            var user = await _repository.DeleteByIdAsync(id);
+            await _context.SaveChangesAsync();
 
             return user;
         }
 
-        public async Task<User> UpdateUser(int id, bool status)
+        public async Task<User> UpdateUserAsync(int id, bool status)
         {
-            var user = await _repository.GetById(id);
+            var user = await _repository.GetByIdAsync(id);
             user.Active = status;
 
             _repository.Update(user);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return user;
         }

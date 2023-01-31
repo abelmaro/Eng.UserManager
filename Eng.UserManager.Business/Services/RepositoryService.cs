@@ -10,19 +10,19 @@ namespace Eng.UserManager.Business.Services
         {
             _repository = repository;
         }
-        public Task<TEntity> Add(TEntity entity)
+        public Task<TEntity> AddAsync(TEntity entity)
         {
-            return _repository.Add(entity);
+            return _repository.AddAsync(entity);
         }
 
-        public Task<TEntity> DeleteById(int id)
+        public Task<TEntity> DeleteByIdAsync(int id)
         {
-            return _repository.DeleteById(id);
+            return _repository.DeleteByIdAsync(id);
         }
 
-        public Task<List<TEntity>> GetAll()
+        public Task<List<TEntity>> GetAllAsync()
         {
-            return _repository.GetAll();
+            return _repository.GetAllAsync();
         }
 
         public IQueryable<TEntity> GetBaseQuery()
@@ -30,9 +30,9 @@ namespace Eng.UserManager.Business.Services
             return _repository.GetBaseQuery();
         }
 
-        public Task<TEntity> GetById(int id)
+        public Task<TEntity> GetByIdAsync(int id)
         {
-            return _repository.GetById(id);
+            return _repository.GetByIdAsync(id);
         }
 
         public TEntity Update(TEntity entity)
