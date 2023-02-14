@@ -1,0 +1,36 @@
+# Default values for eng-usermanager-chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+service:
+    type: ClusterIP
+    port: 80
+
+autoscaling:
+    enabled: false
+
+serviceAccount:
+    create: false 
+    
+replicaCount: 1
+
+ingress:
+    enabled: true  
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/rewrite-target: "/$2"   
+    hosts: 
+    - 
+      host: ""
+      paths: 
+        - path: "/api/engum(/|$)(.*)"
+          pathType: Prefix  
+
+image:
+    repository: eng-api
+    pullPolicy: IfNotPresent
+    tag: latest
+    
+env:
+    "ASPNETCORE_ENVIRONMENT" : "Development"
+
