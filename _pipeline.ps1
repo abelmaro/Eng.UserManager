@@ -3,7 +3,7 @@ minikube delete
 Write-Host "Minikube was removed" -ForegroundColor Green
 
 Write-Host "Start Minikube" -ForegroundColor Green
-minikube start --vm-driver=hyperv Minikube
+minikube start --vm-driver=hyperv Minikube  --disk-size 2gb
 Write-Host "Minikube started" -ForegroundColor Green
 
 Write-Host "Change Docker daemon to use the minikube VM" -ForegroundColor Green
@@ -21,9 +21,9 @@ minikube addons enable ingress
 Write-Host "Ingress was enabled" -ForegroundColor Green
 
 Write-Host "Generate the eng-api image" -ForegroundColor Green
-docker build --no-cache -t eng-api:latest .
+dotnet publish --os linux --arch x64 -p:PublishProfile=DefaultContainer
 Write-Host "eng-api image was generated" -ForegroundColor Green
 
 Write-Host "Installing the chart engum-chart" -ForegroundColor Green
-$CmdBuild = "helm upgrade --install engum-chart ./eng-usermanager-chart --set image.repository=eng-api --set image.tag=latest --namespace=engum --create-namespace"
+helm upgrade --install engum-chart ./eng-usermanager-chart --set image.repository=eng-api --set image.tag=latest --namespace=engum --create-namespace
 Write-Host "Chart engum-chart was installed" -ForegroundColor Green
